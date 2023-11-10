@@ -1,0 +1,40 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<div class="text-center">
+    <h1 class="display-4">Request Support</h1>
+</div>
+
+<EditForm Model="@Ticket" FormName="Tickets" method="post" OnValidSubmit="@HandleValidSubmit" enctype="multipart/form-data">
+    <div class="mb-4">
+        <label>Issue Title</label>
+        <InputText class="form-control" type="text" @bind-Value="@Ticket.Title" />
+    </div>
+    <div class="mb-4">
+        <label>Issue Description</label>
+        <InputText class="form-control" type="text" @bind-Value="@Ticket.Description" />
+    </div>
+    <div class="mb-4">
+        <label>Attachment</label>
+        <InputFile class="form-control" type="file" name="Ticket.Document" @bind-Value="@Ticket.Document" />
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</EditForm>
+
+@code {
+    [SupplyParameterFromForm(FormName = "Tickets")]
+    public SupportTicket Ticket { get; set; } = new SupportTicket();
+
+    private async void HandleValidSubmit()
+    {
+        var test = "";
+    }
+
+    public class SupportTicket()
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public IFormFile Document { get; set; }
+    }
+}
